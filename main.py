@@ -1,13 +1,19 @@
 from fastapi import FastAPI, HTTPException
 import json
+import os
 from model.ParkingLot import ParkingLot
 from typing import List
 
 app = FastAPI()
 
-parkingLots : List[ParkingLot] = []
+parkingLots: List[ParkingLot] = []
 
-file = open("data/parkingLot.json")
+with open("config.json") as config_file:
+    config = json.load(config_file)
+data_folder = config.get("data_folder", "data")
+parking_lot_path = os.path.join(data_folder, config["output"]["parking_lot"])
+
+file = open(parking_lot_path)
 dataJson = file.read()
 data = json.loads(dataJson)
 for item in data:
