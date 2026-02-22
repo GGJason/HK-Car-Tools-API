@@ -4,18 +4,23 @@
 import requests
 import json
 
-x = requests.get('https://resource.data.one.gov.hk/td/carpark/basic_info_all.json')
+with open("config.json") as config_file:
+    config = json.load(config_file)
+
+api = config["api"]
+output = config["output"]
+
+x = requests.get(api["basic_info"])
 print(x.status_code)
 jsonObj = json.loads(x.text.encode('utf8')[3:].decode('utf8'))
 
-with open("data/parkingLot.json", "w") as file:
-    json.dump( jsonObj["car_park"],file)
+with open(output["parking_lot"], "w") as file:
+    json.dump(jsonObj["car_park"], file)
 
-
-y = requests.get('https://api.data.gov.hk/v1/carpark-info-vacancy?data=vacancy&lang=zh_TW')
+y = requests.get(api["vacancy"])
 jsonObj = json.loads(y.text)
 
-with open("data/realtime.json", "w") as f:
-    json.dump( jsonObj["results"],f)
+with open(output["realtime"], "w") as f:
+    json.dump(jsonObj["results"], f)
 
 print("Get data successfully.")

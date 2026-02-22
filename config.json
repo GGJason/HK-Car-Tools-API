@@ -1,0 +1,10 @@
+{
+  "api": {
+    "basic_info": "https://resource.data.one.gov.hk/td/carpark/basic_info_all.json",
+    "vacancy": "https://api.data.gov.hk/v1/carpark-info-vacancy?data=vacancy&lang=zh_TW"
+  },
+  "output": {
+    "parking_lot": "data/parkingLot.json",
+    "realtime": "data/realtime.json"
+  }
+}
